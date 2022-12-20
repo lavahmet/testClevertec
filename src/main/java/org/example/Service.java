@@ -37,8 +37,12 @@ public class Service {
 
     public String CountSales() {
         String result;
-        if (isPromotion)
-            result = "VAT 10%:" + String.format("%3s %s\n", "$", new DecimalFormat(".##").format(vat - total));
+        if (isPromotion) {
+            result = String.format("%s %36s %s\n", "Total", "$", total);
+            total -= total * 0.1;
+            result += "VAT 10%:" + String.format("%35s %s\n", "$", new DecimalFormat(".##").format(vat - total));
+            result += String.format("\n%s %36s %s\n", "TOTAL", "$", total);
+        }
         else result = String.format("%s %36s %s\n", "TOTAL","$", total);
         return result;
     }
